@@ -39,12 +39,11 @@ window.addEventListener("scroll", function () {
   const cta = document.querySelector(".cta-action");
   if (!cta) return;
 
-  const speed = 0.3;  // adjust this for smoother parallax
+  const speed = 0.3; 
   const scrollY = window.scrollY;
   const offsetTop = cta.offsetTop;
   const distance = scrollY - offsetTop;
 
-  // Parallax effect: gently scroll the background upward
   cta.style.backgroundPosition = `50% ${distance * speed}px`;
 });
 
@@ -85,14 +84,14 @@ window.addEventListener("scroll", function () {
 
 $(document).ready(function(){
     $(".my-slider").owlCarousel({
-        items: 1,              // show one image at a time
-        loop: true,            // infinite loop
-        autoplay: true,        // enable auto sliding
-        autoplayTimeout: 3000, // 3 seconds per slide
-        autoplayHoverPause: true, // pause on hover
-        animateOut: "fadeOut", // smooth fade transition
-        dots: true,            // show navigation dots
-        nav: false             // disable arrows (set to true if you want)
+        items: 1,             
+        loop: true,           
+        autoplay: true,       
+        autoplayTimeout: 3000, 
+        autoplayHoverPause: true, 
+        animateOut: "fadeOut",
+        dots: true,           
+        nav: false             
     });
 });
 
@@ -113,38 +112,36 @@ $(document).ready(function(){
 
 
 //gallery imagess
+document.addEventListener("DOMContentLoaded", function() {
+  const filterButtons = document.querySelectorAll(".gallery-filter li");
+  const items = document.querySelectorAll(".masonry-gallery a");
+  const gallery = document.querySelector(".masonry-gallery");
 
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
 
-document.addEventListener("DOMContentLoaded", function () {
-  const filterItems = document.querySelectorAll(".gallery-filter li");
-  const galleryItems = document.querySelectorAll("#masonry-gallery a");
+      filterButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
 
-  
-  galleryItems.forEach(item => {
-    item.addEventListener("click", function (e) {
-      e.preventDefault();
-    });
-  });
+      const filter = btn.getAttribute("data-filter");
 
-  filterItems.forEach(filter => {
-    filter.addEventListener("click", function () {
-      filterItems.forEach(f => f.classList.remove("active"));
-      this.classList.add("active");
+      items.forEach(item => {
+        const category = item.getAttribute("data-category");
 
-      let filterValue = this.getAttribute("data-filter");
-
-      galleryItems.forEach(item => {
-        let itemCategory = item.getAttribute("data-category");
-
-        if (filterValue === "all" || itemCategory === filterValue) {
-          item.style.display = "inline-block";
+        if (filter === "all" || category === filter) {
+          item.classList.remove("is-hidden");
         } else {
-          item.style.display = "none";
+          item.classList.add("is-hidden");
         }
       });
+
+      gallery.style.display = "none";
+      gallery.offsetHeight;
+      gallery.style.display = "block";
     });
   });
 });
+
 
 
 
